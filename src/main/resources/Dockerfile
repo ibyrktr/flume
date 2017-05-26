@@ -8,14 +8,12 @@ ENV FLUME_CONF_FILE "$FLUME_HOME"/conf/flume.conf
 ENV FLUME_CONF_DIR "$FLUME_HOME"/conf
 ENV AGENT_NAME=agent
 
-
-RUN mkdir "$FLUME_HOME"
-
 RUN apt-get update && \
     apt-get install -y zookeeper wget supervisor dnsutils && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean && \
     wget -q http://apache.proserve.nl/flume/"$FLUME_VERSION"/apache-flume-"$FLUME_VERSION"-bin.tar.gz -O /tmp/apache-flume-"$FLUME_VERSION"-bin.tar.gz && \
+    mkdir "$FLUME_HOME" && \
     tar zxvf /tmp/apache-flume-"$FLUME_VERSION"-bin.tar.gz -C "$FLUME_HOME" --strip 1 && \
     rm /tmp/apache-flume-"$FLUME_VERSION"-bin.tar.gz
 
